@@ -21,7 +21,9 @@ const Texkarta = () => {
 		{ name: 'готовыйОвоши', category: 'main-dish' },
         { name: 'ГуакамолеГотовый', category: 'main-dish' },
         { name: 'Авокадо', category: 'main-dish' },
+        { name: 'фасолеваяпастаГотовый', category: 'main-dish' },
 	]
+	
 
 	const handleDishSelect = (dish) => {
 		setSelectedDish(dish)
