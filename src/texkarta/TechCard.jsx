@@ -27,6 +27,7 @@ const Texkarta = () => {
     { name: 'СпециДляКурицы', category: 'side' }, 
     { name: 'СпециДляФарши', category: 'side' },
     { name: 'ДляСоусаЧипотле', category: 'side' },
+      { name: 'фасалВаренный', category: 'side' },
   ];
 
   const handleDishSelect = (dish) => {
@@ -173,7 +174,7 @@ const Texkarta = () => {
                     <td>{key}</td>
                     <td>{value.toFixed(5)}</td>
                     <td>{pracs[key] ? `${pracs[key]} сом` : 'N/A'}</td>
-                    <td>{(pracs[key] * value).toFixed(2)} сом</td> {/* Calculate total price */}
+                    <td>{(pracs[key] * value).toFixed(2)} рубиль</td> {/* Calculate total price */}
                   </tr>
                 ))}
               </tbody>
