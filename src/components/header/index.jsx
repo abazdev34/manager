@@ -36,7 +36,8 @@ const Header = () => {
   return (
     <div className="header">
       
-			<Link to="/Texkarta2"><GiChickenOven /> кухня</Link>
+	
+     
       {(isLaptop || showProduct) && (
         <>
           <form onSubmit={handlePasswordSubmit}>
@@ -49,7 +50,7 @@ const Header = () => {
             <button type="submit">Техкарта</button>
           </form>
           {showProduct && (
-            <Link to="/Texkarta"><GiChickenOven /> Техкарта</Link>
+          <Link to="/TechCard"> калкулятор</Link>
           )}
         </>
       )}

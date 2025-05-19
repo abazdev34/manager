@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { ingredientsData } from './data.js'
 import './texkarta.scss' // Import SCSS file
 
-const Texkarta = () => {
+const Texkarta1 = () => {
 	const [selectedDish, setSelectedDish] = useState('')
 	const [result, setResult] = useState(null)
 	const [totalWeight, setTotalWeight] = useState(0)
@@ -13,17 +13,10 @@ const Texkarta = () => {
 	const [selectedIngredients, setSelectedIngredients] = useState(new Set())
 
 	const quickSelectDishes = [
-		{ name: 'курицаМаринат', category: 'main-dish' },
-		
-		{ name: 'готовыйКурица', category: 'main-dish' },
-		{ name: 'фаршМариновый', category: 'main-dish' },
 
-		{ name: 'готовыйОвоши', category: 'main-dish' },
-        { name: 'ГуакамолеГотовый', category: 'main-dish' },
-        { name: 'Авокадо', category: 'main-dish' },
-        { name: 'фасолеваяпастаГотовый', category: 'main-dish' },
+		{ name: 'специКурица', category: 'main-dish' },
+		{ name: 'специФарш', category: 'main-dish' },
 	]
-	
 
 	const handleDishSelect = (dish) => {
 		setSelectedDish(dish)
@@ -89,7 +82,7 @@ const Texkarta = () => {
 
 	return (
 		<div className='ingredient-calculator'>
-			<h1>Техкарта заготовок</h1>
+			<h1>Техкарта блюда</h1>
 			<div className='quick-select'>
 				{quickSelectDishes.map(({ name, category }) => (
 					<button
@@ -168,4 +161,4 @@ const Texkarta = () => {
 	)
 }
 
-export default Texkarta
+export default Texkarta1

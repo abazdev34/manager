@@ -5,6 +5,7 @@ import {Route,  Routes } from 'react-router-dom'
 import Header from './components/header/index.jsx'
 import Texkarta from './texkarta/index.jsx'
 import Texkarta2 from './texkarta/kyxTex.jsx'
+import TechCard from './texkarta/TechCard.jsx'
 
 function App() {
   return (
@@ -14,10 +15,9 @@ function App() {
 
   
     
-  <Route path="/Texkarta" element={<Texkarta />} />
-  <Route path="/Texkarta2" element={<Texkarta2 />} />
 
 
+ <Route path="/TechCard" element={<TechCard/>} />
   </Routes>
 
 
