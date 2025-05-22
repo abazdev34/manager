@@ -173,15 +173,15 @@ const Texkarta = () => {
                   >
                     <td>{key}</td>
                     <td>{value.toFixed(5)}</td>
-                    <td>{pracs[key] ? `${pracs[key]} сом` : 'N/A'}</td>
-                    <td>{(pracs[key] * value).toFixed(2)} рубиль</td> {/* Calculate total price */}
+                    <td>{pracs[key] ? `${pracs[key]} ` : 'N/A'}</td>
+                    <td>{(pracs[key] * value).toFixed(2)} р</td> {/* Calculate total price */}
                   </tr>
                 ))}
               </tbody>
             </table>
           </div>
           <div className='total-cost'>
-            <h3>Общая стоимость: {totalCost.toFixed(2)} сом</h3>
+            <h3>Общая стоимость: {totalCost.toFixed(2)} рубиль</h3>
           </div>
         </div>
       )}
@@ -199,7 +199,7 @@ const Texkarta = () => {
               <thead>
                 <tr>
                   <th>Название продукта</th>
-                  <th>Цена (сом)</th>
+                  <th>Цена </th>
                   <th>Действия</th>
                 </tr>
               </thead>
@@ -207,7 +207,7 @@ const Texkarta = () => {
                 {Object.entries(pracs).map(([productName, price]) => (
                   <tr key={productName}>
                     <td>{productName}</td>
-                    <td>{price} сом</td>
+                    <td>{price}</td>
                     <td>
                       <button onClick={() => startEditingProduct(productName)}>Изменить</button>
                       <button onClick={() => removeProduct(productName)}>Удалить</button>
