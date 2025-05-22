@@ -26,7 +26,7 @@ const Header = () => {
 
   const handlePasswordSubmit = (e) => {
     e.preventDefault();
-    if (password === 'abazT1989') { // Мұнда 'yourPassword' дегенді өз пароліңізбен ауыстырыңыз
+    if (password === '4545') { // Мұнда 'yourPassword' дегенді өз пароліңізбен ауыстырыңыз
       setShowProduct(true);
     } else {
       alert('Неправильный пароль');
