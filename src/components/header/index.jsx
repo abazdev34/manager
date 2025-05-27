@@ -47,10 +47,10 @@ const Header = () => {
               onChange={handlePasswordChange} 
               placeholder="доступ только с пароля " 
             />
-            <button type="submit">Техкарта</button>
+            <button type="submit">Открыть</button>
           </form>
           {showProduct && (
-          <Link to="/TechCard"> калкулятор</Link>
+          <Link to="/TechCard"> Токторбаев Абаз</Link>
           )}
         </>
       )}
