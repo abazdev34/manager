@@ -1,32 +1,25 @@
-$primary-color: #4f46e5; // Tailwind's indigo-600
-$secondary-color: #9333ea; // Tailwind's purple-600
-$text-color: #ffffff;
-$background-color: #1e1e2f;
-
 .card-container {
-  min-height: 100vh;
-  background: linear-gradient(to bottom right, #1e1e2f, #4b5563);
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  padding: 1rem;
+  padding: 20px;
+  background-color: #f9f9f9; // Фон түсү
+  border-radius: 10px; // Бурчтардын тегеректелиши
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Тендер
 
   .language-switcher {
-    position: absolute;
-    top: 1rem;
-    right: 1rem;
+    margin-bottom: 20px; // Тил алмаштыруучу үчүн аралык
     button {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 0.5rem;
-      padding: 0.5rem 1rem;
-      color: $text-color;
-      transition: background 0.3s;
+      background: #007bff; // Кнопканын фону
+      color: white; // Тексттин түсү
+      border: none; // Чек ара жок
+      border-radius: 5px; // Бурчтардын тегеректелиши
+      padding: 10px 15px; // Паддинг
+      cursor: pointer; // Курсордун өзгөрүшү
+      transition: background 0.3s; // Фон түсүнүн өтүшү
 
       &:hover {
-        background: rgba(255, 255, 255, 0.2);
+        background: #0056b3; // Hover эффект
       }
     }
   }
@@ -36,7 +29,7 @@ $background-color: #1e1e2f;
     width: 300px;
     height: 400px;
     cursor: pointer;
-    perspective: 1000px;
+    perspective: 1000px; // 3D эффект
 
     .card-inner {
       position: relative;
@@ -54,21 +47,21 @@ $background-color: #1e1e2f;
         position: absolute;
         width: 100%;
         height: 100%;
-        border-radius: 1rem;
-        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+        border-radius: 10px; // Бурчтардын тегеректелиши
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); // Тендер
         backface-visibility: hidden;
         display: flex;
         flex-direction: column;
         justify-content: space-between;
-        padding: 1rem;
-        color: $text-color;
+        padding: 20px;
+        color: #333; // Тексттин түсү
 
         &.card-front {
-          background: linear-gradient(to bottom right, $primary-color, $secondary-color);
+          background: linear-gradient(to bottom right, #4f46e5, #9333ea); // Фон градиенти
         }
 
         &.card-back {
-          background: linear-gradient(to bottom right, #374151, #1f2937);
+          background: #374151; // Фон түсү
           transform: rotateY(180deg);
         }
       }
@@ -76,21 +69,19 @@ $background-color: #1e1e2f;
   }
 
   .helper-text {
-    position: absolute;
-    bottom: 1rem;
-    text-align: center;
-    color: rgba($text-color, 0.6);
+    margin-top: 10px; // Текст үчүн аралык
+    color: #666; // Тексттин түсү
   }
 
+  // Мобилдик түзмөлөр үчүн
   @media (max-width: 768px) {
     .card {
-      width: 90%;
-      height: auto;
+      width: 90%; // Түзмөктүн туурасы
+      height: auto; // Автоматтык бийиктик
     }
 
     .language-switcher {
-      top: 0.5rem;
-      right: 0.5rem;
+      margin-bottom: 10px; // Тил алмаштыруучу үчүн аралык
     }
   }
 }

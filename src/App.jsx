@@ -10,7 +10,7 @@ import TechCard from './texkarta/TechCard.jsx'
 function App() {
   return (
  <div className="div">
-  <Header/>
+
   <Routes>
 
   
