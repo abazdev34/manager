@@ -9,7 +9,7 @@ export default function BusinessCard() {
   const translations = {
     kyrgyz: {
       name: "Токторбаев Абаз",
-      position: "ООСО Футмастер",
+      position: "Таколенд",
       location: "г Москва",
       flipHint: "Тескерисин көрүү үчүн басыңыз",
       contactChannels: "Байланыш каналдары",
@@ -18,7 +18,7 @@ export default function BusinessCard() {
     },
     russian: {
       name: "Токторбаев Абаз",
-      position: "ООСО Футмастер",
+      position: "Таколенд",
       location: "г Москва",
       flipHint: "Нажмите, чтобы перевернуть",
       contactChannels: "Каналы связи",
@@ -27,7 +27,7 @@ export default function BusinessCard() {
     },
     english: {
       name: "Toktorbaev Abaz",
-      position: "LLC Footmaster",
+      position: "TAKOLAND",
       location: "Moscow",
       flipHint: "Click to flip",
       contactChannels: "Contact Channels",
