@@ -1,18 +1,13 @@
+// src/App.jsx
+import React from 'react';
+import BusinessCard from './components/ProductCard'
 
+const App = () => {
+    return (
+     <div className="">
+        <BusinessCard/>
+     </div>
+    );
+};
 
-import {Route,  Routes } from 'react-router-dom'
-
-
-import TechCard from './texkarta/TechCard.jsx'
-
-function App() {
-  return (
- <div className="div">
-
-
-  <TechCard/>
-
-
- </div>
-  )}
-export default App
+export default App;
