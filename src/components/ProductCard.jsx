@@ -5,6 +5,7 @@ const BusinessCard = () => {
   const [isCardFlipped, setIsCardFlipped] = useState(false);
   const qrRef = useRef(null);
 
+  // Contact data
   const contactData = {
     name: 'Токторбаев Абаз Кубанычбекович',
     nameKg: 'Токторбаев Абаз Кубанычбекович',
@@ -13,6 +14,7 @@ const BusinessCard = () => {
     initials: 'АТ'
   };
 
+  // vCard format for contact information
   const vCardData = `BEGIN:VCARD
 VERSION:3.0
 FN:${contactData.name}
@@ -21,21 +23,21 @@ TEL;TYPE=CELL:${contactData.phone}
 EMAIL:${contactData.email}
 END:VCARD`;
 
-  // QR код түзүү функциясы
+  // Function to generate a simple QR code
   const generateQRCode = () => {
     if (!qrRef.current) return;
-    
+
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
     canvas.width = 200;
     canvas.height = 200;
-    
-    // Жөнөкөй QR код симуляциясы
+
+    // Simulating a QR code
     ctx.fillStyle = '#000';
     ctx.fillRect(0, 0, 200, 200);
     ctx.fillStyle = '#fff';
-    
-    // QR код үлгүсү
+
+    // Randomly generating QR code pattern
     for (let i = 0; i < 20; i++) {
       for (let j = 0; j < 20; j++) {
         if (Math.random() > 0.5) {
@@ -43,7 +45,7 @@ END:VCARD`;
         }
       }
     }
-    
+
     qrRef.current.innerHTML = '';
     qrRef.current.appendChild(canvas);
   };
@@ -52,21 +54,25 @@ END:VCARD`;
     generateQRCode();
   }, []);
 
+  // Function to show notifications
   const showNotification = (message) => {
     setNotification(message);
     setTimeout(() => setNotification(''), 3000);
   };
 
+  // Function to handle phone call
   const handleCall = () => {
     window.open(`tel:${contactData.phone}`, '_self');
     showNotification('📞 Телефон чалынууда...');
   };
 
+  // Function to handle email
   const handleEmail = () => {
     window.open(`mailto:${contactData.email}`, '_self');
     showNotification('✉️ Email программасы ачылууда...');
   };
 
+  // Function to download vCard
   const downloadVCard = () => {
     const element = document.createElement('a');
     const file = new Blob([vCardData], { type: 'text/vcard' });
@@ -78,6 +84,7 @@ END:VCARD`;
     showNotification('📱 Контакт ийгиликтүү сакталды!');
   };
 
+  // Function to share the card
   const shareCard = async () => {
     if (navigator.share) {
       try {
@@ -118,67 +125,36 @@ END:VCARD`;
           {/* Card Header */}
           <div className="card-header">
             <div className="header-overlay"></div>
-            
-            {/* Avatar */}
-            <div className="avatar">
-              {contactData.initials}
-            </div>
-            
-            <h1 className="main-name">
-              {contactData.name}
-            </h1>
-            <p className="kyrgyz-name">
-              {contactData.nameKg}
-            </p>
+            <div className="avatar">{contactData.initials}</div>
+            <h1 className="main-name">{contactData.name}</h1>
+            <p className="kyrgyz-name">{contactData.nameKg}</p>
           </div>
 
           {/* Card Body */}
           <div className="card-body">
-            {/* Contact Info */}
             <div className="contact-info">
               {/* Phone */}
-              <div 
-                onClick={handleCall}
-                className="contact-item phone-item"
-              >
-                <div className="contact-icon phone-icon">
-                  📞
-                </div>
+              <div onClick={handleCall} className="contact-item phone-item">
+                <div className="contact-icon phone-icon">📞</div>
                 <div className="contact-details">
-                  <p className="contact-label">
-                    Телефон
-                  </p>
-                  <p className="contact-value">
-                    +7 977 323 04 49
-                  </p>
+                  <p className="contact-label">Телефон</p>
+                  <p className="contact-value">{contactData.phone}</p>
                 </div>
               </div>
 
               {/* Email */}
-              <div 
-                onClick={handleEmail}
-                className="contact-item email-item"
-              >
-                <div className="contact-icon email-icon">
-                  ✉️
-                </div>
+              <div onClick={handleEmail} className="contact-item email-item">
+                <div className="contact-icon email-icon">✉️</div>
                 <div className="contact-details">
-                  <p className="contact-label">
-                    Электрондук почта
-                  </p>
-                  <p className="contact-value email-value">
-                    {contactData.email}
-                  </p>
+                  <p className="contact-label">Электрондук почта</p>
+                  <p className="contact-value email-value">{contactData.email}</p>
                 </div>
               </div>
             </div>
 
             {/* QR Section */}
             <div className="qr-section">
-              <h3 className="qr-title">
-                📱 QR код менен контакт сактоо
-              </h3>
-              
+              <h3 className="qr-title">📱 QR код менен контакт сактоо</h3>
               <div className="qr-container">
                 <div ref={qrRef} className="qr-code">
                   <span className="qr-placeholder">QR Code</span>
@@ -187,31 +163,19 @@ END:VCARD`;
 
               {/* Action Buttons */}
               <div className="action-buttons">
-                <button 
-                  onClick={downloadVCard}
-                  className="btn btn-primary"
-                >
-                  💾 Сактоо
-                </button>
-                <button 
-                  onClick={shareCard}
-                  className="btn btn-secondary"
-                >
-                  📤 Бөлүшүү
-                </button>
+                <button onClick={downloadVCard} className="btn btn-primary">💾 Сактоо</button>
+                <button onClick={shareCard} className="btn btn-secondary">📤 Бөлүшүү</button>
               </div>
             </div>
           </div>
 
           {/* Card Footer */}
           <div className="card-footer">
-            <p className="footer-text">
-              🌟 QR кодду телефонуңуз менен сканерлеңиз
-            </p>
+            <p className="footer-text">🌟 QR кодду телефонуңуз менен сканерлеңиз</p>
           </div>
         </div>
 
-        {/* Tips Card - только для больших экранов */}
+        {/* Tips Card - only for larger screens */}
         <div className="tips-card">
           <h4 className="tips-title">💡 Кеңештер:</h4>
           <ul className="tips-list">
@@ -223,7 +187,7 @@ END:VCARD`;
       </div>
 
       <style jsx>{`
-        // Переменные SCSS
+        // SCSS Variables
         $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         $secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         $success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
@@ -239,7 +203,7 @@ END:VCARD`;
         $transition-medium: 0.3s ease;
         $transition-slow: 0.5s ease;
 
-        // Основные стили
+        // Main styles
         .business-card-container {
           min-height: 100vh;
           background: $primary-gradient;
@@ -256,7 +220,7 @@ END:VCARD`;
           }
         }
 
-        // Уведомления
+        // Notification styles
         .notification {
           position: fixed;
           top: 1rem;
@@ -280,7 +244,7 @@ END:VCARD`;
           }
         }
 
-        // Основная карточка
+        // Business card styles
         .business-card {
           background: white;
           border-radius: $border-radius-large;
@@ -315,7 +279,7 @@ END:VCARD`;
           }
         }
 
-        // Заголовок карточки
+        // Card header styles
         .card-header {
           background: linear-gradient(135deg, #1e293b 0%, #3b82f6 100%);
           color: white;
@@ -336,7 +300,7 @@ END:VCARD`;
           }
         }
 
-        // Аватар
+        // Avatar styles
         .avatar {
           width: 5rem;
           height: 5rem;
@@ -359,7 +323,7 @@ END:VCARD`;
           }
         }
 
-        // Имена
+        // Name styles
         .main-name {
           font-size: 1.25rem;
           font-weight: bold;
@@ -384,7 +348,7 @@ END:VCARD`;
           }
         }
 
-        // Тело карточки
+        // Card body styles
         .card-body {
           padding: 1.5rem;
           
@@ -393,7 +357,7 @@ END:VCARD`;
           }
         }
 
-        // Контактная информация
+        // Contact info styles
         .contact-info {
           margin-bottom: 1.5rem;
           
@@ -494,7 +458,7 @@ END:VCARD`;
           }
         }
 
-        // QR секция
+        // QR section styles
         .qr-section {
           background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
           border-radius: $border-radius-large;
@@ -563,7 +527,7 @@ END:VCARD`;
           }
         }
 
-        // Кнопки действий
+        // Action buttons styles
         .action-buttons {
           display: flex;
           gap: 0.75rem;
@@ -617,7 +581,7 @@ END:VCARD`;
           }
         }
 
-        // Подвал карточки
+        // Card footer styles
         .card-footer {
           background: #f8fafc;
           padding: 1rem 1.5rem;
@@ -638,7 +602,7 @@ END:VCARD`;
           }
         }
 
-        // Карточка с советами
+        // Tips card styles
         .tips-card {
           position: fixed;
           bottom: 1rem;
@@ -675,7 +639,7 @@ END:VCARD`;
           }
         }
 
-        // Анимации
+        // Animations
         @keyframes slideInRight {
           from {
             transform: translateX(100%);
@@ -711,7 +675,7 @@ END:VCARD`;
           }
         }
 
-        // Дополнительные адаптивные стили
+        // Additional responsive styles
         @media (max-width: 480px) {
           .business-card-container {
             padding: 0.25rem;
@@ -751,7 +715,7 @@ END:VCARD`;
           }
         }
 
-        // Ландшафтная ориентация для мобильных
+        // Landscape orientation for mobile
         @media (max-width: 768px) and (orientation: landscape) {
           .business-card-container {
             padding-top: 0.5rem;
@@ -769,14 +733,14 @@ END:VCARD`;
           }
         }
 
-        // Высокие экраны
+        // High screens
         @media (min-height: 900px) {
           .business-card-container {
             align-items: center;
           }
         }
 
-        // Очень маленькие экраны
+        // Very small screens
         @media (max-width: 320px) {
           .main-name {
             font-size: 0.9rem;

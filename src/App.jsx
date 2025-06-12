@@ -1,5 +1,6 @@
 // src/App.jsx
 import React from 'react';
+import './App.scss';
 import BusinessCard from './components/ProductCard'
 
 const App = () => {
