@@ -10,7 +10,7 @@ const BusinessCard = () => {
   const content = {
     kg: {
       name: 'Токторбаев Абаз Кубанычбекович',
-      position: 'Ишкер / Консультант',
+    
       phone: 'Телефон',
       email: 'Электрондук почта',
       whatsapp: 'WhatsApp',
@@ -37,7 +37,7 @@ const BusinessCard = () => {
     },
     ru: {
       name: 'Токторбаев Абаз Кубанычбекович',
-      position: 'Предприниматель / Консультант',
+ 
       phone: 'Телефон',
       email: 'Электронная почта',
       whatsapp: 'WhatsApp',
@@ -64,7 +64,7 @@ const BusinessCard = () => {
     },
     en: {
       name: 'Toktorbaev Abaz Kubanychbekovich',
-      position: 'Entrepreneur / Consultant',
+     
       phone: 'Phone',
       email: 'Email',
       whatsapp: 'WhatsApp',
@@ -164,31 +164,43 @@ END:VCARD`;
   // Function to handle phone call
   const handleCall = (e) => {
     e.stopPropagation();
-    window.open(`tel:${contactData.phone}`, '_self');
-    showNotification(content[currentLanguage].notifications.call);
+    setIsCardFlipped(true);
+    setTimeout(() => {
+      window.open(`tel:${contactData.phone}`, '_self');
+      showNotification(content[currentLanguage].notifications.call);
+    }, 300);
   };
 
   // Function to handle email
   const handleEmail = (e) => {
     e.stopPropagation();
-    window.open(`mailto:${contactData.email}`, '_self');
-    showNotification(content[currentLanguage].notifications.email);
+    setIsCardFlipped(true);
+    setTimeout(() => {
+      window.open(`mailto:${contactData.email}`, '_self');
+      showNotification(content[currentLanguage].notifications.email);
+    }, 300);
   };
 
   // Function to handle WhatsApp
   const handleWhatsApp = (e) => {
     e.stopPropagation();
-    const whatsappUrl = `https://wa.me/${contactData.whatsapp.replace('+', '')}`;
-    window.open(whatsappUrl, '_blank');
-    showNotification(content[currentLanguage].notifications.whatsapp);
+    setIsCardFlipped(true);
+    setTimeout(() => {
+      const whatsappUrl = `https://wa.me/${contactData.whatsapp.replace('+', '')}`;
+      window.open(whatsappUrl, '_blank');
+      showNotification(content[currentLanguage].notifications.whatsapp);
+    }, 300);
   };
 
   // Function to handle Telegram
   const handleTelegram = (e) => {
     e.stopPropagation();
-    const telegramUrl = `https://t.me/${contactData.telegram.replace('@', '')}`;
-    window.open(telegramUrl, '_blank');
-    showNotification(content[currentLanguage].notifications.telegram);
+    setIsCardFlipped(true);
+    setTimeout(() => {
+      const telegramUrl = `https://t.me/${contactData.telegram.replace('@', '')}`;
+      window.open(telegramUrl, '_blank');
+      showNotification(content[currentLanguage].notifications.telegram);
+    }, 300);
   };
 
   // Function to download vCard
@@ -302,9 +314,10 @@ END:VCARD`;
           margin-bottom: 24px;
           box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
           cursor: pointer;
-          transition: transform 0.3s ease;
+          transition: transform 0.6s ease;
           position: relative;
           overflow: hidden;
+          transform-style: preserve-3d;
         }
 
         .business-card:hover {
@@ -579,10 +592,7 @@ END:VCARD`;
         )}
 
         {/* Business Card */}
-        <div 
-          className={`business-card ${isCardFlipped ? 'flipped' : ''}`}
-          onClick={() => setIsCardFlipped(!isCardFlipped)}
-        >
+        <div className={`business-card ${isCardFlipped ? 'flipped' : ''}`}>
           {/* Card Header */}
           <div className="card-header">
             <div className="header-overlay"></div>
