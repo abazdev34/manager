@@ -1,7 +1,11 @@
-  $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+ 
+        // SCSS Variables
+        $primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         $secondary-gradient: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
         $success-gradient: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
         $warning-gradient: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        $whatsapp-gradient: linear-gradient(135deg, #25d366 0%, #128c7e 100%);
+        $telegram-gradient: linear-gradient(135deg, #0088cc 0%, #005577 100%);
         
         $shadow-light: 0 4px 6px rgba(0, 0, 0, 0.1);
         $shadow-medium: 0 10px 25px rgba(0, 0, 0, 0.15);
@@ -26,7 +30,54 @@
           @media (max-width: 768px) {
             padding: 0.5rem;
             align-items: flex-start;
-            padding-top: 2rem;
+            padding-top: 4rem;
+          }
+        }
+
+        // Language Selector
+        .language-selector {
+          position: fixed;
+          top: 1rem;
+          left: 1rem;
+          display: flex;
+          gap: 0.5rem;
+          z-index: 1000;
+          
+          @media (max-width: 768px) {
+            top: 0.5rem;
+            left: 0.5rem;
+            gap: 0.25rem;
+          }
+        }
+
+        .lang-btn {
+          background: rgba(255, 255, 255, 0.9);
+          border: 2px solid transparent;
+          padding: 0.5rem 0.75rem;
+          border-radius: 12px;
+          font-weight: 600;
+          font-size: 0.75rem;
+          cursor: pointer;
+          transition: all $transition-fast;
+          backdrop-filter: blur(10px);
+          
+          &:hover {
+            background: white;
+            transform: translateY(-2px);
+            box-shadow: $shadow-light;
+          }
+          
+          &.active {
+            background: $success-gradient;
+            color: white;
+            border-color: rgba(255, 255, 255, 0.3);
+            box-shadow: $shadow-medium;
+          }
+          
+          @media (max-width: 768px) {
+            padding: 0.4rem 0.6rem;
+            font-size: 0.7rem;
+            border-radius: 8px;
           }
         }
 
@@ -147,11 +198,12 @@
           }
         }
 
-        .kyrgyz-name {
+        .position {
           color: rgba(147, 197, 253, 0.9);
           position: relative;
           z-index: 10;
           font-size: 0.9rem;
+          font-style: italic;
           
           @media (max-width: 768px) {
             font-size: 0.85rem;
@@ -232,6 +284,16 @@
 
         .email-icon {
           background: linear-gradient(135deg, #ef4444 0%, #fbbf24 100%);
+          color: white;
+        }
+
+        .whatsapp-icon {
+          background: $whatsapp-gradient;
+          color: white;
+        }
+
+        .telegram-icon {
+          background: $telegram-gradient;
           color: white;
         }
 
@@ -556,7 +618,7 @@
             font-size: 0.9rem;
           }
           
-          .kyrgyz-name {
+          .position {
             font-size: 0.8rem;
           }
           
