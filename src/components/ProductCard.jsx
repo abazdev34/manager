@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 
+
 const BusinessCard = () => {
   const [notification, setNotification] = useState('');
   const [isCardFlipped, setIsCardFlipped] = useState(false);
@@ -10,7 +11,21 @@ const BusinessCard = () => {
   const content = {
     kg: {
       name: 'Токторбаев Абаз Кубанычбекович',
-    
+     
+      restaurant: 'Ресторан',
+      restaurantDescription: `🔥 ТАКОЛЕНД - бул мексикалык тамак-аштын эң сонун жери Москвада! 🔥
+
+🌟 Эмне үчүн биз?
+
+🌶️ Таза мексикалык рецепттер боюнча даярдалган тамактар
+🥑 Жаңы авокадо, чили жана ароматтуу курч-буурчтар  
+🌮 Классикалык такос, буритто, начос жана дагы көптөгөн тамактар
+
+👨‍🍳 Тажрыйбалуу ашпозчулар жана сыпайы кызматкерлер
+
+📍 Дарек: Москва шаары
+⏰ Ачык күн сайын: 10:00 - 03:00
+`,
       phone: 'Телефон',
       email: 'Электрондук почта',
       whatsapp: 'WhatsApp',
@@ -30,6 +45,7 @@ const BusinessCard = () => {
         email: '✉️ Email программасы ачылууда...',
         whatsapp: '💬 WhatsApp ачылууда...',
         telegram: '✈️ Telegram ачылууда...',
+        website: '🌐 Сайт ачылууда...',
         saved: '📱 Контакт ийгиликтүү сакталды!',
         copied: '📋 Маалымат көчүрүлдү!',
         error: '❌ Көчүрүүдө ката!'
@@ -37,7 +53,21 @@ const BusinessCard = () => {
     },
     ru: {
       name: 'Токторбаев Абаз Кубанычбекович',
- 
+    
+      restaurant: 'Ресторан',
+      restaurantDescription: `🔥 ТАКОЛЕНД - Лучший мексиканский ресторан в Москве! 🔥
+
+🌟 Почему именно мы?
+
+🌶️ Аутентичные мексиканские блюда по традиционным рецептам
+🥑 Свежие авокадо, перцы чили и ароматные специи
+🌮 Классические тако, буррито, начос и многое другое
+
+👨‍🍳 Опытные повара и дружелюбный персонал
+
+📍 Адрес: г. Москва
+⏰ Работаем ежедневно: 10:00 - 03:00
+`,
       phone: 'Телефон',
       email: 'Электронная почта',
       whatsapp: 'WhatsApp',
@@ -57,6 +87,7 @@ const BusinessCard = () => {
         email: '✉️ Открытие Email...',
         whatsapp: '💬 Открытие WhatsApp...',
         telegram: '✈️ Открытие Telegram...',
+        website: '🌐 Открытие сайта...',
         saved: '📱 Контакт успешно сохранён!',
         copied: '📋 Информация скопирована!',
         error: '❌ Ошибка копирования!'
@@ -65,6 +96,20 @@ const BusinessCard = () => {
     en: {
       name: 'Toktorbaev Abaz Kubanychbekovich',
      
+      restaurant: 'Restaurant',
+      restaurantDescription: `🔥 TACOLAND - The Best Mexican Restaurant in Moscow! 🔥
+
+🌟 Why Choose Us?
+
+🌶️ Authentic Mexican dishes made with traditional recipes
+🥑 Fresh avocados, chili peppers and aromatic spices
+🌮 Classic tacos, burritos, nachos and much more
+
+👨‍🍳 Experienced chefs and friendly staff
+
+📍 Address: Moscow, Russia
+⏰ Open daily: 10:00 - 03:00
+`,
       phone: 'Phone',
       email: 'Email',
       whatsapp: 'WhatsApp',
@@ -84,6 +129,7 @@ const BusinessCard = () => {
         email: '✉️ Opening Email...',
         whatsapp: '💬 Opening WhatsApp...',
         telegram: '✈️ Opening Telegram...',
+        website: '🌐 Opening website...',
         saved: '📱 Contact saved successfully!',
         copied: '📋 Information copied!',
         error: '❌ Copy error!'
@@ -99,7 +145,13 @@ const BusinessCard = () => {
     email: 'abaztoktorbaev89@gmail.com',
     whatsapp: '+79773230449',
     telegram: '@abaztoktorbaev',
-    initials: 'АТ'
+    initials: 'АТ',
+    website: 'https://tacoland.ru/',
+    restaurantName: {
+      kg: 'Таколенд',
+      ru: 'Таколенд', 
+      en: 'Tacoland'
+    }
   };
 
   // vCard format for contact information
@@ -107,10 +159,11 @@ const BusinessCard = () => {
 VERSION:3.0
 FN:${contactData.name}
 N:Токторбаев;Абаз;Кубанычбекович;;
+TITLE:${content[currentLanguage].position}
 TEL;TYPE=CELL:${contactData.phone}
 EMAIL:${contactData.email}
-URL;TYPE=WhatsApp:https://wa.me/${contactData.whatsapp.replace('+', '')}
-URL;TYPE=Telegram:https://t.me/${contactData.telegram.replace('@', '')}
+URL:${contactData.website}
+NOTE:${content[currentLanguage].restaurantDescription}
 END:VCARD`;
 
   // Function to generate a simple QR code
@@ -161,6 +214,16 @@ END:VCARD`;
     setTimeout(() => setNotification(''), 3000);
   };
 
+  // Function to handle website
+  const handleWebsite = (e) => {
+    e.stopPropagation();
+    setIsCardFlipped(true);
+    setTimeout(() => {
+      window.open(contactData.website, '_blank');
+      showNotification(content[currentLanguage].notifications.website);
+    }, 300);
+  };
+
   // Function to handle phone call
   const handleCall = (e) => {
     e.stopPropagation();
@@ -208,7 +271,7 @@ END:VCARD`;
     const element = document.createElement('a');
     const file = new Blob([vCardData], { type: 'text/vcard' });
     element.href = URL.createObjectURL(file);
-    element.download = 'Токторбаев_Абаз.vcf';
+    element.download = 'Toktorbaev_Abaz.vcf';
     document.body.appendChild(element);
     element.click();
     document.body.removeChild(element);
@@ -228,7 +291,7 @@ END:VCARD`;
         console.log('Sharing failed:', err);
       }
     } else {
-      const cardInfo = `🏷️ ${contactData.name}\n📞 ${contactData.phone}\n✉️ ${contactData.email}\n💬 WhatsApp: ${contactData.whatsapp}\n✈️ Telegram: ${contactData.telegram}`;
+      const cardInfo = `🏷️ ${contactData.name}\n📞 ${contactData.phone}\n✉️ ${contactData.email}\n💬 WhatsApp: ${contactData.whatsapp}\n✈️ Telegram: ${contactData.telegram}\n🌐 ${contactData.website}`;
       try {
         await navigator.clipboard.writeText(cardInfo);
         showNotification(content[currentLanguage].notifications.copied);
@@ -246,338 +309,15 @@ END:VCARD`;
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-4">
-      <style jsx>{`
-        .business-card-container {
-          max-width: 800px;
-          margin: 0 auto;
-          font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        .language-selector {
-          display: flex;
-          justify-content: center;
-          gap: 8px;
-          margin-bottom: 24px;
-        }
-
-        .lang-btn {
-          padding: 8px 16px;
-          border: 2px solid #e5e7eb;
-          border-radius: 20px;
-          background: white;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          font-size: 14px;
-          font-weight: 500;
-        }
-
-        .lang-btn:hover {
-          border-color: #3b82f6;
-          background: #f8fafc;
-        }
-
-        .lang-btn.active {
-          border-color: #3b82f6;
-          background: #3b82f6;
-          color: white;
-        }
-
-        .notification {
-          position: fixed;
-          top: 20px;
-          right: 20px;
-          background: #10b981;
-          color: white;
-          padding: 12px 20px;
-          border-radius: 8px;
-          box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
-          z-index: 1000;
-          animation: slideIn 0.3s ease;
-        }
-
-        @keyframes slideIn {
-          from {
-            transform: translateX(100%);
-            opacity: 0;
-          }
-          to {
-            transform: translateX(0);
-            opacity: 1;
-          }
-        }
-
-        .business-card {
-          background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-          border-radius: 20px;
-          padding: 32px;
-          margin-bottom: 24px;
-          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-          cursor: pointer;
-          transition: transform 0.6s ease;
-          position: relative;
-          overflow: hidden;
-          transform-style: preserve-3d;
-        }
-
-        .business-card:hover {
-          transform: translateY(-5px);
-        }
-
-        .business-card.flipped {
-          transform: rotateY(180deg);
-        }
-
-        .card-header {
-          text-align: center;
-          margin-bottom: 32px;
-          position: relative;
-        }
-
-        .header-overlay {
-          position: absolute;
-          top: -20px;
-          left: -20px;
-          right: -20px;
-          bottom: -20px;
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 20px;
-          backdrop-filter: blur(10px);
-        }
-
-        .avatar {
-          width: 80px;
-          height: 80px;
-          border-radius: 50%;
-          background: white;
-          color: #667eea;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-size: 32px;
-          font-weight: bold;
-          margin: 0 auto 16px;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-          position: relative;
-          z-index: 2;
-        }
-
-        .main-name {
-          color: white;
-          font-size: 24px;
-          font-weight: 600;
-          margin: 0 0 8px 0;
-          text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-          position: relative;
-          z-index: 2;
-        }
-
-        .position {
-          color: rgba(255, 255, 255, 0.9);
-          font-size: 16px;
-          margin: 0;
-          position: relative;
-          z-index: 2;
-        }
-
-        .card-body {
-          display: grid;
-          grid-template-columns: 1fr 1fr;
-          gap: 32px;
-          align-items: start;
-        }
-
-        @media (max-width: 768px) {
-          .card-body {
-            grid-template-columns: 1fr;
-            gap: 24px;
-          }
-        }
-
-        .contact-info {
-          display: flex;
-          flex-direction: column;
-          gap: 16px;
-        }
-
-        .contact-item {
-          background: rgba(255, 255, 255, 0.15);
-          backdrop-filter: blur(10px);
-          border-radius: 12px;
-          padding: 16px;
-          display: flex;
-          align-items: center;
-          gap: 16px;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .contact-item:hover {
-          background: rgba(255, 255, 255, 0.25);
-          transform: translateX(5px);
-        }
-
-        .contact-icon {
-          font-size: 24px;
-          width: 40px;
-          height: 40px;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          background: rgba(255, 255, 255, 0.2);
-          border-radius: 8px;
-        }
-
-        .contact-details {
-          flex: 1;
-        }
-
-        .contact-label {
-          color: rgba(255, 255, 255, 0.8);
-          font-size: 12px;
-          margin: 0 0 4px 0;
-          text-transform: uppercase;
-          letter-spacing: 0.5px;
-        }
-
-        .contact-value {
-          color: white;
-          font-size: 14px;
-          font-weight: 500;
-          margin: 0;
-        }
-
-        .email-value {
-          font-size: 13px;
-        }
-
-        .qr-section {
-          text-align: center;
-        }
-
-        .qr-title {
-          color: white;
-          font-size: 18px;
-          font-weight: 600;
-          margin: 0 0 20px 0;
-        }
-
-        .qr-container {
-          background: white;
-          border-radius: 12px;
-          padding: 20px;
-          margin-bottom: 20px;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .qr-code {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          min-height: 200px;
-        }
-
-        .qr-code canvas {
-          border-radius: 8px;
-        }
-
-        .qr-placeholder {
-          color: #6b7280;
-          font-size: 16px;
-        }
-
-        .action-buttons {
-          display: flex;
-          gap: 12px;
-          justify-content: center;
-        }
-
-        .btn {
-          padding: 12px 24px;
-          border: none;
-          border-radius: 8px;
-          font-size: 14px;
-          font-weight: 500;
-          cursor: pointer;
-          transition: all 0.3s ease;
-          min-width: 120px;
-        }
-
-        .btn-primary {
-          background: #10b981;
-          color: white;
-        }
-
-        .btn-primary:hover {
-          background: #059669;
-        }
-
-        .btn-secondary {
-          background: rgba(255, 255, 255, 0.2);
-          color: white;
-          border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-
-        .btn-secondary:hover {
-          background: rgba(255, 255, 255, 0.3);
-        }
-
-        .card-footer {
-          text-align: center;
-          margin-top: 32px;
-          padding-top: 24px;
-          border-top: 1px solid rgba(255, 255, 255, 0.2);
-        }
-
-        .footer-text {
-          color: rgba(255, 255, 255, 0.8);
-          font-size: 14px;
-          margin: 0;
-        }
-
-        .tips-card {
-          background: white;
-          border-radius: 16px;
-          padding: 24px;
-          box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
-        }
-
-        .tips-title {
-          color: #374151;
-          font-size: 18px;
-          font-weight: 600;
-          margin: 0 0 16px 0;
-        }
-
-        .tips-list {
-          list-style: none;
-          padding: 0;
-          margin: 0;
-        }
-
-        .tips-list li {
-          color: #6b7280;
-          font-size: 14px;
-          margin-bottom: 8px;
-          padding-left: 4px;
-        }
-
-        @media (max-width: 768px) {
-          .tips-card {
-            display: none;
-          }
-        }
-      `}</style>
-
-      <div className="business-card-container">
+    <div className="business-card-app">
+      <div className="container">
         {/* Language Selector */}
         <div className="language-selector">
           {Object.keys(content).map(lang => (
             <button
               key={lang}
               onClick={() => setCurrentLanguage(lang)}
-              className={`lang-btn ${currentLanguage === lang ? 'active' : ''}`}
+              className={`language-btn ${currentLanguage === lang ? 'active' : ''}`}
             >
               {flags[lang]} {lang.toUpperCase()}
             </button>
@@ -591,93 +331,491 @@ END:VCARD`;
           </div>
         )}
 
-        {/* Business Card */}
-        <div className={`business-card ${isCardFlipped ? 'flipped' : ''}`}>
-          {/* Card Header */}
-          <div className="card-header">
-            <div className="header-overlay"></div>
-            <div className="avatar">{contactData.initials}</div>
-            <h1 className="main-name">{content[currentLanguage].name}</h1>
-            <p className="position">{content[currentLanguage].position}</p>
+        {/* Main Content Grid */}
+        <div className="main-grid">
+          {/* Business Card */}
+          <div className={`business-card ${isCardFlipped ? 'flipped' : ''}`}>
+            <div className="card-inner">
+              {/* Decorative elements */}
+              <div className="decoration decoration-1"></div>
+              <div className="decoration decoration-2"></div>
+              
+              {/* Card Header */}
+              <div className="card-header">
+                <div className="avatar">
+                  {contactData.initials}
+                </div>
+                <h1 className="name">{content[currentLanguage].name}</h1>
+                <p className="position">{content[currentLanguage].position}</p>
+              </div>
+
+              {/* Contact Items */}
+              <div className="contact-items">
+                {/* Website */}
+                <div onClick={handleWebsite} className="contact-item website">
+                  <div className="contact-icon">🌐</div>
+                  <div className="contact-info">
+                    <p className="contact-label">{content[currentLanguage].restaurant}</p>
+                    <p className="contact-value">{contactData.restaurantName[currentLanguage]}</p>
+                  </div>
+                </div>
+
+                {/* Phone */}
+                <div onClick={handleCall} className="contact-item phone">
+                  <div className="contact-icon">📞</div>
+                  <div className="contact-info">
+                    <p className="contact-label">{content[currentLanguage].phone}</p>
+                    <p className="contact-value">{contactData.phone}</p>
+                  </div>
+                </div>
+
+                {/* Email */}
+                <div onClick={handleEmail} className="contact-item email">
+                  <div className="contact-icon">✉️</div>
+                  <div className="contact-info">
+                    <p className="contact-label">{content[currentLanguage].email}</p>
+                    <p className="contact-value">{contactData.email}</p>
+                  </div>
+                </div>
+
+                {/* WhatsApp */}
+                <div onClick={handleWhatsApp} className="contact-item whatsapp">
+                  <div className="contact-icon">💬</div>
+                  <div className="contact-info">
+                    <p className="contact-label">{content[currentLanguage].whatsapp}</p>
+                    <p className="contact-value">{contactData.whatsapp}</p>
+                  </div>
+                </div>
+
+                {/* Telegram */}
+                <div onClick={handleTelegram} className="contact-item telegram">
+                  <div className="contact-icon">✈️</div>
+                  <div className="contact-info">
+                    <p className="contact-label">{content[currentLanguage].telegram}</p>
+                    <p className="contact-value">{contactData.telegram}</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* QR Section */}
+              <div className="qr-section">
+                <h3 className="qr-title">{content[currentLanguage].qrTitle}</h3>
+                <div className="qr-container">
+                  <div ref={qrRef} className="qr-code">
+                    <span className="qr-placeholder">QR Code</span>
+                  </div>
+                </div>
+
+                {/* Action Buttons */}
+                <div className="action-buttons">
+                  <button onClick={downloadVCard} className="btn btn-save">
+                    {content[currentLanguage].saveBtn}
+                  </button>
+                  <button onClick={shareCard} className="btn btn-share">
+                    {content[currentLanguage].shareBtn}
+                  </button>
+                </div>
+
+                <p className="footer-text">{content[currentLanguage].footerText}</p>
+              </div>
+            </div>
           </div>
 
-          {/* Card Body */}
-          <div className="card-body">
-            <div className="contact-info">
-              {/* Phone */}
-              <div onClick={handleCall} className="contact-item phone-item">
-                <div className="contact-icon phone-icon">📞</div>
-                <div className="contact-details">
-                  <p className="contact-label">{content[currentLanguage].phone}</p>
-                  <p className="contact-value">{contactData.phone}</p>
-                </div>
+          {/* Restaurant Description */}
+          <div className="restaurant-section">
+            {/* Restaurant Advertisement */}
+            <div className="restaurant-card">
+              <div className="restaurant-header">
+                <div className="restaurant-emoji">🌮</div>
+                <h2 className="restaurant-name">
+                  {contactData.restaurantName[currentLanguage]}
+                </h2>
+                <div className="restaurant-divider"></div>
               </div>
-
-              {/* Email */}
-              <div onClick={handleEmail} className="contact-item email-item">
-                <div className="contact-icon email-icon">✉️</div>
-                <div className="contact-details">
-                  <p className="contact-label">{content[currentLanguage].email}</p>
-                  <p className="contact-value email-value">{contactData.email}</p>
-                </div>
-              </div>
-
-              {/* WhatsApp */}
-              <div onClick={handleWhatsApp} className="contact-item whatsapp-item">
-                <div className="contact-icon whatsapp-icon">💬</div>
-                <div className="contact-details">
-                  <p className="contact-label">{content[currentLanguage].whatsapp}</p>
-                  <p className="contact-value">{contactData.whatsapp}</p>
-                </div>
-              </div>
-
-              {/* Telegram */}
-              <div onClick={handleTelegram} className="contact-item telegram-item">
-                <div className="contact-icon telegram-icon">✈️</div>
-                <div className="contact-details">
-                  <p className="contact-label">{content[currentLanguage].telegram}</p>
-                  <p className="contact-value">{contactData.telegram}</p>
-                </div>
+              
+              <div className="restaurant-description">
+                <pre className="description-text">
+                  {content[currentLanguage].restaurantDescription}
+                </pre>
               </div>
             </div>
 
-            {/* QR Section */}
-            <div className="qr-section">
-              <h3 className="qr-title">{content[currentLanguage].qrTitle}</h3>
-              <div className="qr-container">
-                <div ref={qrRef} className="qr-code">
-                  <span className="qr-placeholder">QR Code</span>
-                </div>
-              </div>
-
-              {/* Action Buttons */}
-              <div className="action-buttons">
-                <button onClick={downloadVCard} className="btn btn-primary">
-                  {content[currentLanguage].saveBtn}
-                </button>
-                <button onClick={shareCard} className="btn btn-secondary">
-                  {content[currentLanguage].shareBtn}
-                </button>
-              </div>
+            {/* Tips Card */}
+            <div className="tips-card">
+              <h4 className="tips-title">{content[currentLanguage].tips}</h4>
+              <ul className="tips-list">
+                {content[currentLanguage].tipsList.map((tip, index) => (
+                  <li key={index} className="tip-item">
+                    <span className="tip-bullet">•</span>
+                    {tip.replace('• ', '')}
+                  </li>
+                ))}
+              </ul>
             </div>
           </div>
-
-          {/* Card Footer */}
-          <div className="card-footer">
-            <p className="footer-text">{content[currentLanguage].footerText}</p>
-          </div>
-        </div>
-
-        {/* Tips Card - only for larger screens */}
-        <div className="tips-card">
-          <h4 className="tips-title">{content[currentLanguage].tips}</h4>
-          <ul className="tips-list">
-            {content[currentLanguage].tipsList.map((tip, index) => (
-              <li key={index}>{tip}</li>
-            ))}
-          </ul>
         </div>
       </div>
+
+      <style jsx>{`
+        .business-card-app {
+          min-height: 100vh;
+          background: linear-gradient(135deg, #fff7ed, #fef2f2, #fffbeb);
+          padding: 1rem;
+          font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+        }
+
+        .container {
+          max-width: 1200px;
+          margin: 0 auto;
+        }
+
+        .language-selector {
+          display: flex;
+          justify-content: center;
+          gap: 0.5rem;
+          margin-bottom: 1.5rem;
+        }
+
+        .language-btn {
+          padding: 0.5rem 1rem;
+          border-radius: 9999px;
+          border: 2px solid #d1d5db;
+          background: white;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          cursor: pointer;
+        }
+
+        .language-btn:hover {
+          border-color: #f87171;
+          background: #fef2f2;
+        }
+
+        .language-btn.active {
+          border-color: #ef4444;
+          background: #ef4444;
+          color: white;
+        }
+
+        .notification {
+          position: fixed;
+          top: 1.25rem;
+          right: 1.25rem;
+          background: #10b981;
+          color: white;
+          padding: 0.75rem 1.25rem;
+          border-radius: 0.5rem;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+          z-index: 50;
+          animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+          0%, 100% { opacity: 1; }
+          50% { opacity: 0.8; }
+        }
+
+        .main-grid {
+          display: grid;
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+
+        @media (min-width: 1024px) {
+          .main-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+        }
+
+        .business-card {
+          transition: transform 0.7s ease;
+        }
+
+        .business-card.flipped {
+          transform: scale(1.05);
+        }
+
+        .card-inner {
+          background: linear-gradient(135deg, #dc2626, #ea580c, #eab308);
+          border-radius: 1.5rem;
+          padding: 2rem;
+          box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+          color: white;
+          position: relative;
+          overflow: hidden;
+        }
+
+        .decoration {
+          position: absolute;
+          background: rgba(255, 255, 255, 0.1);
+          border-radius: 50%;
+        }
+
+        .decoration-1 {
+          width: 8rem;
+          height: 8rem;
+          top: -4rem;
+          right: -4rem;
+        }
+
+        .decoration-2 {
+          width: 6rem;
+          height: 6rem;
+          bottom: -3rem;
+          left: -3rem;
+        }
+
+        .card-header {
+          text-align: center;
+          margin-bottom: 2rem;
+          position: relative;
+          z-index: 10;
+        }
+
+        .avatar {
+          width: 5rem;
+          height: 5rem;
+          background: white;
+          color: #dc2626;
+          border-radius: 50%;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin: 0 auto 1rem;
+          box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        .name {
+          font-size: 1.5rem;
+          font-weight: bold;
+          margin-bottom: 0.5rem;
+        }
+
+        .position {
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 1.125rem;
+        }
+
+        .contact-items {
+          display: flex;
+          flex-direction: column;
+          gap: 1rem;
+          position: relative;
+          z-index: 10;
+          margin-bottom: 2rem;
+        }
+
+        .contact-item {
+          background: rgba(255, 255, 255, 0.2);
+          backdrop-filter: blur(10px);
+          border-radius: 0.75rem;
+          padding: 1rem;
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        }
+
+        .contact-item:hover {
+          background: rgba(255, 255, 255, 0.3);
+          transform: scale(1.05);
+        }
+
+        .contact-icon {
+          width: 3rem;
+          height: 3rem;
+          border-radius: 0.5rem;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          font-size: 1.25rem;
+        }
+
+        .website .contact-icon { background: #10b981; }
+        .phone .contact-icon { background: #3b82f6; }
+        .email .contact-icon { background: #8b5cf6; }
+        .whatsapp .contact-icon { background: #059669; }
+        .telegram .contact-icon { background: #06b6d4; }
+
+        .contact-info {
+          flex: 1;
+        }
+
+        .contact-label {
+          font-size: 0.875rem;
+          color: rgba(255, 255, 255, 0.9);
+          text-transform: uppercase;
+          letter-spacing: 0.05em;
+          margin-bottom: 0.25rem;
+        }
+
+        .contact-value {
+          font-weight: 600;
+          font-size: 0.875rem;
+        }
+
+        .qr-section {
+          text-align: center;
+          position: relative;
+          z-index: 10;
+        }
+
+        .qr-title {
+          font-size: 1.125rem;
+          font-weight: 600;
+          margin-bottom: 1rem;
+        }
+
+        .qr-container {
+          background: white;
+          border-radius: 1rem;
+          padding: 1.25rem;
+          margin: 0 auto 1rem;
+          width: fit-content;
+        }
+
+        .qr-code {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          min-height: 200px;
+        }
+
+        .qr-placeholder {
+          color: #6b7280;
+        }
+
+        .action-buttons {
+          display: flex;
+          gap: 0.75rem;
+          justify-content: center;
+          margin-bottom: 1rem;
+        }
+
+        .btn {
+          padding: 0.75rem 1.5rem;
+          border-radius: 0.5rem;
+          font-weight: 500;
+          transition: all 0.3s ease;
+          cursor: pointer;
+          border: none;
+        }
+
+        .btn-save {
+          background: #10b981;
+          color: white;
+        }
+
+        .btn-save:hover {
+          background: #059669;
+        }
+
+        .btn-share {
+          background: rgba(255, 255, 255, 0.2);
+          color: white;
+        }
+
+        .btn-share:hover {
+          background: rgba(255, 255, 255, 0.3);
+        }
+
+        .footer-text {
+          color: rgba(255, 255, 255, 0.9);
+          font-size: 0.875rem;
+        }
+
+        .restaurant-section {
+          display: flex;
+          flex-direction: column;
+          gap: 1.5rem;
+        }
+
+        .restaurant-card {
+          background: white;
+          border-radius: 1.5rem;
+          padding: 2rem;
+          box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+          border: 1px solid #fed7aa;
+        }
+
+        .restaurant-header {
+          text-align: center;
+          margin-bottom: 1.5rem;
+        }
+
+        .restaurant-emoji {
+          font-size: 3.75rem;
+          margin-bottom: 1rem;
+        }
+
+        .restaurant-name {
+          font-size: 1.875rem;
+          font-weight: bold;
+          color: #1f2937;
+          margin-bottom: 0.5rem;
+        }
+
+        .restaurant-divider {
+          width: 6rem;
+          height: 0.25rem;
+          background: linear-gradient(to right, #ef4444, #f97316);
+          margin: 0 auto;
+          border-radius: 9999px;
+        }
+
+        .restaurant-description {
+          background: linear-gradient(135deg, #fff7ed, #fef2f2);
+          border-radius: 1rem;
+          padding: 1.5rem;
+        }
+
+        .description-text {
+          color: #374151;
+          line-height: 1.6;
+          white-space: pre-wrap;
+          font-family: inherit;
+          font-size: 0.875rem;
+          margin: 0;
+        }
+
+        .tips-card {
+          background: white;
+          border-radius: 1rem;
+          padding: 1.5rem;
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+
+        .tips-title {
+          font-size: 1.125rem;
+          font-weight: 600;
+          color: #1f2937;
+          margin-bottom: 1rem;
+        }
+
+        .tips-list {
+          list-style: none;
+          padding: 0;
+          margin: 0;
+          display: flex;
+          flex-direction: column;
+          gap: 0.5rem;
+        }
+
+        .tip-item {
+          color: #4b5563;
+          font-size: 0.875rem;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+        }
+
+        .tip-bullet {
+          color: #f97316;
+        }
+      `}</style>
     </div>
   );
 };
